@@ -1,3 +1,4 @@
+import { ModifyListComponent } from './../modals/modify-list/modify-list.component';
 import { CreateListComponent } from './../modals/create-list/create-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, CreateListComponent]
+  declarations: [HomePage, CreateListComponent, ModifyListComponent]
 })
 export class HomePageModule {}

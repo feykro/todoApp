@@ -17,6 +17,10 @@ export class ListService {
     this.createTodo("Etienne", "Le bg aux yeux bleus", 1);
   }
 
+  public changeName(indice: number, newName: string){
+    this.todoLists[1].name = newName;
+  }
+
   public createTodoList(name: string){
     var newList : List = new List(name);
     this.todoLists.push(newList);

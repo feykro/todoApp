@@ -1,7 +1,6 @@
 import { ModalController } from '@ionic/angular';
 import { ListService } from './../../services/list.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-list',

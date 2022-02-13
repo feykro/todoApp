@@ -1,3 +1,4 @@
+import { ModifyListComponent } from './../modals/modify-list/modify-list.component';
 import { ListService } from './../services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
@@ -29,6 +30,16 @@ export class HomePage {
   async addNewTodoList(){
     const modal = await this.modalController.create({
       component: CreateListComponent,
+    });
+    modal.present();
+  }
+
+  async modifyTodoListName(indice : number){
+    const modal = await this.modalController.create({
+      component: ModifyListComponent,
+      componentProps: {
+        ind: indice
+      },
     });
     modal.present();
   }

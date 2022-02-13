@@ -1,0 +1,23 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Modifier titre de la todoList</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Annuler</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Nouveau nom pour la liste:</ion-label>
+      <ion-input [(ngModel)]="newName" placeholder="titre de la todo-list"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-button (click) = "modifyTodoListName(ind)" color="success" >
+    Valider
+  </ion-button>
+</ion-fab>
