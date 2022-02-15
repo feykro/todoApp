@@ -1,3 +1,4 @@
+import { ModifyTodoComponent } from './../../modals/modify-todo/modify-todo.component';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -30,6 +31,17 @@ export class ListDetailsPage implements OnInit {
       componentProps: {
         ind: this.listInd
       },
+    });
+    modal.present();
+  }
+
+  async modifyTodo(todoInd: number){
+    const modal = await this.modalController.create({
+      component: ModifyTodoComponent,
+      componentProps: {
+        ind: this.listInd,
+        todoInd: todoInd,
+      }
     });
     modal.present();
   }

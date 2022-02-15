@@ -43,4 +43,10 @@ export class ListService {
     this.todoLists.splice(id, 1);
   }
 
+  public modifyTodo(listId: number, todoId: number, newName: string, newDescription: string){
+    let list : List = this.todoLists[listId];
+    list.todos[todoId].description = newDescription;
+    list.todos[todoId].name = newName;
+  }
+
 }

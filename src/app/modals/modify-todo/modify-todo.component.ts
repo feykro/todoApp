@@ -3,17 +3,16 @@ import { ModalController } from '@ionic/angular';
 import { ListService } from 'src/app/services/list.service';
 
 @Component({
-  selector: 'app-create-todo',
-  templateUrl: './create-todo.component.html',
-  styleUrls: ['./create-todo.component.scss'],
+  selector: 'app-modify-todo',
+  templateUrl: './modify-todo.component.html',
+  styleUrls: ['./modify-todo.component.scss'],
 })
-
-export class CreateTodoComponent implements OnInit {
+export class ModifyTodoComponent implements OnInit {
 
   todoName: string = '';
   description: string = '';
   ind : number;
-  todoInd : number;
+  todoInd: number;
 
   constructor(private listService : ListService, private modalController : ModalController) { }
 
@@ -23,8 +22,9 @@ export class CreateTodoComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  addTodo(){
-    this.listService.createTodo(this.todoName, this.description, this.ind);
+  modifyTodo(){
+    this.listService.modifyTodo(this.ind, this.todoInd, this.todoName, this.description);
     this.modalController.dismiss();
   }
+
 }
