@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { CreateTodoComponent } from './../../modals/create-todo/create-todo.component';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 
 import { ListDetailsPageRoutingModule } from './list-details-routing.module';
 
@@ -13,11 +14,11 @@ import { ListDetailsPage } from './list-details.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ListDetailsPageRoutingModule
+    ListDetailsPageRoutingModule,
   ],
-  declarations: [ListDetailsPage]
+  declarations: [ListDetailsPage, CreateTodoComponent]
 })
+
 export class ListDetailsPageModule {
-
-
+  
 }

@@ -1,0 +1,27 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Creer une todoList</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Annuler</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">name</ion-label>
+      <ion-input [(ngModel)]="todoName" placeholder="titre du todo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">description</ion-label>
+      <ion-input [(ngModel)]="description" placeholder="description du todo"></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-button (click)="addTodo()" color="success" >
+    Valider
+  </ion-button>
+</ion-fab>

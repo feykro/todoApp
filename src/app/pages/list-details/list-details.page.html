@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list-details</ion-title>
+    <ion-title> {{currentList.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let todo of currentList.todos; index as position">
+      <ion-label>{{todo.name}}</ion-label>
+      <ion-icon icon="square-outline" slot="end"></ion-icon>
+    </ion-item>
+  </ion-list>
 
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click) = "addNewTodo()" >
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

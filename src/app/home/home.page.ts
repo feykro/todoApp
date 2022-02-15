@@ -1,8 +1,9 @@
 import { ModifyListComponent } from './../modals/modify-list/modify-list.component';
 import { ListService } from './../services/list.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { CreateListComponent } from '../modals/create-list/create-list.component
 })
 export class HomePage {
 
-  constructor(public listService : ListService, public modalController: ModalController) {}
+  constructor(public listService : ListService, public modalController: ModalController, private router: Router) {}
 
   ngOnInit(){
     this.listService.init();
@@ -22,16 +23,15 @@ export class HomePage {
     console.log("bonjour");
   }
 
-  removeFromTodoList(indice : number){
-    this.listService.removeTodoList(indice);
-    console.log(this.listService.getTodoLists());
-  }
-
   async addNewTodoList(){
     const modal = await this.modalController.create({
       component: CreateListComponent,
     });
     modal.present();
+  }
+
+  gotoListPage(listInd : number){
+    this.router.navigate(['list-details', listInd]);
   }
 
   async modifyTodoListName(indice : number){
@@ -42,6 +42,11 @@ export class HomePage {
       },
     });
     modal.present();
+  }
+
+  removeFromTodoList(indice : number){
+    this.listService.removeTodoList(indice);
+    console.log(this.listService.getTodoLists());
   }
 
 }
