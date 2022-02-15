@@ -18,7 +18,7 @@ export class ListService {
   }
 
   public changeName(indice: number, newName: string){
-    this.todoLists[1].name = newName;
+    this.todoLists[indice].name = newName;
   }
 
   public createTodoList(name: string){
