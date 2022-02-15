@@ -14,7 +14,7 @@
 
       <ion-item>
         <ion-label>{{todo.name}}</ion-label>
-        <ion-icon icon="square-outline" slot="end"></ion-icon>
+        <ion-checkbox color="primary" [(ngModel)]="todo.isDone" slot="end"></ion-checkbox>
       </ion-item>
     </ion-item-sliding>
   </ion-list>
