@@ -1,22 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title> {{currentList.name}}</ion-title>
+<ion-header [translucent]="true">
+  <ion-toolbar class="topToolBar">
+  
+    <ion-buttons slot="secondary">
+      <ion-button [routerLink]="['/home']">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title slot="start">{{currentList.name}}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/settings']">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding *ngFor="let todo of currentList.todos; index as position">
-     
-      <ion-item-options side="start">
-        <ion-item-option (click)="modifyTodo(position)">Modify</ion-item-option>
-      </ion-item-options>
-
-      <ion-item>
-        <ion-label>{{todo.name}}</ion-label>
-        <ion-checkbox color="primary" [(ngModel)]="todo.isDone" slot="end"></ion-checkbox>
+    <ion-accordion-group>
+    
+    <ion-accordion *ngFor="let todo of currentList.todos; index as position">
+      <ion-item slot="header">
+        <label>{{todo.name}}</label>
+        <ion-checkbox color="primary" [(ngModel)]="todo.isDone" (click)="onEvent($event)" slot="end" class="todoCheckbox"></ion-checkbox>
       </ion-item>
-    </ion-item-sliding>
+
+      <ion-list slot="content">
+        <ion-item>
+          <ion-label>{{todo.description}}</ion-label>
+        </ion-item>
+      </ion-list>
+
+
+    </ion-accordion>
+  </ion-accordion-group>  
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">

@@ -25,6 +25,10 @@ export class ListDetailsPage implements OnInit {
    });
   }
 
+  onEvent(event){
+    event.stopPropagation();
+  }
+
   async addNewTodo(){
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
