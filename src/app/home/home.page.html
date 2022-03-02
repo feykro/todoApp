@@ -8,6 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
+
     <ion-item-sliding *ngFor="let list of listService.getTodoLists(); index as position" class="myItem">
       <ion-item-options side="end">
         <ion-item-option (click)="removeFromTodoList(position)" color="danger" expandable>
@@ -26,6 +27,7 @@
       </ion-item>
 
     </ion-item-sliding>
+  
 </ion-list>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
