@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div>
+    <ion-img alt="IMAGasine" [src]="./logo.png"></ion-img>
+  </div>
+  
+
+  <div>
+    <h1>Sign in</h1>
+  </div>
+  
+
+  <ion-input aria-required="true">
+    email
+  </ion-input>
+
+  <ion-input aria-required="true">
+    password
+  </ion-input>
+
+  <ion-button fill="block" class="validate-button" onclick="login()">
+    Validate
+  </ion-button>
+
+
 
 </ion-content>
