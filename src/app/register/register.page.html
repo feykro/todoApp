@@ -10,7 +10,7 @@
   
   <br/>
   <ion-text>
-    Sign in
+    Sign up
   </ion-text>
 
   <ion-item>
@@ -23,17 +23,12 @@
     <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <ion-item button fill="block" class="validate-button" (click)="login()">
+  <ion-item button fill="block" class="validate-button" (click)="register()">
     <ion-label>
       OK
     </ion-label>
   </ion-item>
 
-  <ion-text *ngIf="bad_login">bad login</ion-text>
-
-
-  <ion-button [routerLink]="['/register']">
-    Sign up
-  </ion-button>
+  <ion-text *ngIf="hasError">{{errorMessage}}</ion-text>
 
 </ion-content>

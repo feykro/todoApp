@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -31,13 +30,13 @@ export class LoginPage implements OnInit {
     
     this.auth.signInWithEmailAndPassword(this.email, this.password)
     .then((userCredential) => {
-        console.log("login OK, userCredential = " + userCredential + ", redirect to /home");
-        this.router.navigateByUrl('/home');
+      console.log("login OK, userCredential = " + userCredential + ", redirect to /home");
+      this.router.navigateByUrl('/home');
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log("login KO, " + "errorCode " + errorCode + " errorMessage " + errorMessage);
+      console.log("login KO, errorCode = " + errorCode + ", errorMessage = " + errorMessage);
 
       this.bad_login = true;
     });

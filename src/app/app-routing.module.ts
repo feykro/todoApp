@@ -31,6 +31,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
+    ...canActivate(redirectLoggedInToHome) // logged user has no reason to register a new account
+  },
+
 ];
 
 @NgModule({
