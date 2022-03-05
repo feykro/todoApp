@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -8,7 +10,13 @@ import { Router } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router) { }
+  email : string = "";
+  password : string = "";
+
+  bad_login : boolean = false;
+
+  constructor(private router: Router, public auth: AngularFireAuth) { }
+
 
   ngOnInit() {
     console.log("ngOnInit start");
@@ -16,10 +24,24 @@ export class LoginPage implements OnInit {
 
   login() {
     console.log("login start");
-    console.log("login TODO effective login");
-    console.log("login redirect to /home");
 
-    this.router.navigateByUrl('/home');
+    console.log("login email = " + this.email);
+    console.log("login password = " + this.password);
+
+    
+    this.auth.signInWithEmailAndPassword(this.email, this.password)
+    .then((userCredential) => {
+        console.log("login OK, userCredential = " + userCredential + ", redirect to /home");
+        this.router.navigateByUrl('/home');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("login KO, " + "errorCode " + errorCode + " errorMessage " + errorMessage);
+
+      this.bad_login = true;
+    });
+
     console.log("login end");
   }
 

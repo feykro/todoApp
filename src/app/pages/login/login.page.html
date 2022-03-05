@@ -11,12 +11,12 @@
 
   <ion-item>
     <ion-label position="stacked">Email</ion-label>
-    <ion-input placeholder="name@example.com"></ion-input>
+    <ion-input placeholder="name@example.com" [(ngModel)]="email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Password</ion-label>
-    <ion-input type="password" placeholder="password"></ion-input>
+    <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 
   <ion-item button fill="block" class="validate-button" (click)="login()">
@@ -24,5 +24,7 @@
       OK
     </ion-label>
   </ion-item>
+
+  <ion-text *ngIf="bad_login">bad login</ion-text>
 
 </ion-content>
