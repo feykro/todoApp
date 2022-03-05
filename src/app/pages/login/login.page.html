@@ -1,31 +1,28 @@
 <ion-content>
   
-  <!--
-  <div>
-    <ion-img alt="IMAGasine" [src]="logo.png"></ion-img>
-  </div>
-  -->
+  <ion-text>IMAGasine</ion-text>
+  <br/>
+  <ion-text>🛒</ion-text>
   
+  <br/>
+  <ion-text>
+    Sign in
+  </ion-text>
 
-  <div>
-    <h1>Sign in</h1>
-  </div>
-  
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input placeholder="name@example.com"></ion-input>
+  </ion-item>
 
-  <ion-input>
-    email
-  </ion-input>
-
-  <ion-input>
-    password
-  </ion-input>
+  <ion-item>
+    <ion-label position="stacked">Password</ion-label>
+    <ion-input type="password" placeholder="password"></ion-input>
+  </ion-item>
 
   <ion-item button fill="block" class="validate-button" (click)="login()">
     <ion-label>
       OK
     </ion-label>
   </ion-item>
-
-
 
 </ion-content>
