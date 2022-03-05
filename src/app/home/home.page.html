@@ -7,6 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-button [routerLink]="['/settings']">
+    Settings
+  </ion-button>
+
   <ion-list>
 
     <ion-item-sliding *ngFor="let list of listService.getTodoLists(); index as position" class="myItem">

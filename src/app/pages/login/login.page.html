@@ -1,7 +1,10 @@
 <ion-content>
+  
+  <!--
   <div>
-    <ion-img alt="IMAGasine" [src]="./logo.png"></ion-img>
+    <ion-img alt="IMAGasine" [src]="logo.png"></ion-img>
   </div>
+  -->
   
 
   <div>
@@ -9,17 +12,19 @@
   </div>
   
 
-  <ion-input aria-required="true">
+  <ion-input>
     email
   </ion-input>
 
-  <ion-input aria-required="true">
+  <ion-input>
     password
   </ion-input>
 
-  <ion-button fill="block" class="validate-button" onclick="login()">
-    Validate
-  </ion-button>
+  <ion-item button fill="block" class="validate-button" (click)="login()">
+    <ion-label>
+      OK
+    </ion-label>
+  </ion-item>
 
 
 
