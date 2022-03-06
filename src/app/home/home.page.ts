@@ -3,7 +3,6 @@ import { ListService } from './../services/list.service';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(public listService : ListService, public modalController: ModalController, private router: Router) {}
+  constructor(public listService : ListService, public modalController: ModalController) {}
 
   ngOnInit(){
     this.listService.init();
@@ -28,10 +27,6 @@ export class HomePage {
       component: CreateListComponent,
     });
     modal.present();
-  }
-
-  gotoListPage(listInd : number){
-    this.router.navigate(['list-details', listInd]);
   }
 
   async modifyTodoListName(indice : number){

@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-button [routerLink]="['/home']">
+    Back
+  </ion-button>
+
+
+  <ion-text font>
+    <h1>👨</h1>
+  </ion-text>
+
+  <ion-input value="Nom et prenom">
+  </ion-input>
+
+  <ion-text>
+    adresse@email.com
+  </ion-text>
+
+  <ion-item button fill="block" (click)="logout()">
+    <ion-label>
+      Deconnection
+    </ion-label>
+  </ion-item>
 
 </ion-content>
