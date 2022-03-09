@@ -16,8 +16,11 @@
   </ion-list>
 </ion-content>
 
-<ion-fab vertical="bottom" horizontal="center" slot="fixed">
-  <ion-button (click) = "addTodoList()" color="success" >
-    Valider
-  </ion-button>
-</ion-fab>
+<ion-footer>
+  <ion-toolbar class="modalValidateToolBar">
+    <ion-button class="addButton" (click) = "addTodoList()" color="success">
+      Valider
+      <!--<ion-icon name="add-circle-outline"></ion-icon> peut etre avec un tick-->
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

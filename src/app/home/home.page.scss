@@ -25,3 +25,34 @@
 #container a {
   text-decoration: none;
 }
+
+.counter {
+  align-self: end;
+  text-align: right;
+  vertical-align: middle;
+  
+  max-width: 70px;
+}
+
+.myItem {
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  max-width: calc(100% - 12px);
+  border-radius: 15px ;
+}
+
+.homeToolBar {
+  text-align: center;
+}
+
+.topToolBar {
+  text-align: right;
+  margin: auto;
+}
+
+.settingIcon{
+  margin-right: 10px;
+  height: 100%;
+}
+
