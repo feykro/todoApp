@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { canActivate } from '@angular/fire/compat/auth-guard';
+import { AuthPipe, canActivate, emailVerified, loggedIn } from '@angular/fire/compat/auth-guard';
 import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
 
 // cf https://github.com/angular/angularfire/blob/master/docs/auth/router-guards.md
 const adminOnly = () => hasCustomClaim('admin');
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
-const belongsToAccount = (next) => hasCustomClaim(`account-${next.params.id}`);
+const redirectLoggedInToHome = () => redirectLoggedInTo('home');
+const emailVerifiedLogin = (user) => emailVerified(user);
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    // TODO faire marcher ça : canActivate: [AuthGuard]
     ...canActivate(redirectLoggedInToHome)
   },
   {
