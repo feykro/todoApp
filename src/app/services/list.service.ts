@@ -7,7 +7,7 @@ import { List } from '../models/list';
 })
 export class ListService {
 
-  public todoLists: List[] = []; //liste de todoList aka List
+  private todoLists: List[] = []; // liste de todoList aka List
 
   constructor() {}
 
@@ -47,6 +47,10 @@ export class ListService {
     let list : List = this.todoLists[listId];
     list.todos[todoId].description = newDescription;
     list.todos[todoId].name = newName;
+  }
+
+  public removeTodo(idList : number, idTodo : number){
+    this.todoLists[idList].todos.splice(idTodo, 1);
   }
 
 }
