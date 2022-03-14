@@ -9,23 +9,26 @@ import { ModalController } from '@ionic/angular';
 })
 export class LoginLostpasswordComponent implements OnInit {
 
-  public lostEmail : string = '';
-  
-  constructor(public auth: AngularFireAuth, private modalController : ModalController) { }
+  public lostEmail: string = '';
 
-  ngOnInit() {}
+  constructor(public auth: AngularFireAuth, private modalController: ModalController) { }
 
+  ngOnInit() { }
 
   sendPasswordResetEmail() {
     console.log("LoginLostpasswordComponent sendPasswordResetEmail called", this.lostEmail);
-    if (this.lostEmail === '') { // TODO tester avec une regex que l'email est valide
-      console.log("LoginLostpasswordComponent sendPasswordResetEmail entry is not a valid email", this.lostEmail);
-      // TODO afficher l'erreur dans la modale
-    } else {
+    if (this.isValidEmail(this.lostEmail)) {
       this.auth.sendPasswordResetEmail(this.lostEmail);
       this.modalController.dismiss();
+    } else {
+      console.log("LoginLostpasswordComponent sendPasswordResetEmail entry is not a valid email", this.lostEmail);
+      // TODO afficher l'erreur dans la modale
     }
 
+  }
+
+  isValidEmail(email: string) {
+    return email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
   }
 
 }
