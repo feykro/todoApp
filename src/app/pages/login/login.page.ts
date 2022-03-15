@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ModalController } from '@ionic/angular';
+import { LoginLostpasswordComponent } from 'src/app/modals/login-lostpassword/login-lostpassword.component';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +13,12 @@ export class LoginPage implements OnInit {
 
   email : string = "";
   password : string = "";
+  message : string = "";
 
-  bad_login : boolean = false;
-
-  constructor(private router: Router, public auth: AngularFireAuth) { }
+  constructor(private router: Router,
+    public auth: AngularFireAuth,
+    private route: ActivatedRoute,
+    public modalController: ModalController) { }
 
 
   ngOnInit() {
@@ -38,10 +42,17 @@ export class LoginPage implements OnInit {
       const errorMessage = error.message;
       console.log("login KO, errorCode = " + errorCode + ", errorMessage = " + errorMessage);
 
-      this.bad_login = true;
+      this.message = error.message;
     });
 
     console.log("login end");
+  }
+
+  async lostPassword(){
+    const modal = await this.modalController.create({
+      component: LoginLostpasswordComponent,
+    });
+    modal.present();
   }
 
 }

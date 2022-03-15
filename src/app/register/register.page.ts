@@ -31,19 +31,9 @@ export class RegisterPage implements OnInit {
     this.auth.createUserWithEmailAndPassword(this.email, this.password)
       .then((userCredential) => {
         console.log("register OK, userCredential = " + userCredential);
-        this.auth.signInWithEmailAndPassword(this.email, this.password)
-        .then((userCredential) => {
-          console.log("register login OK, userCredential = " + userCredential + ", redirect to /home");
-          this.router.navigateByUrl('/home');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("register login KO, errorCode = " + errorCode + ", errorMessage = " + errorMessage);
-          // TODO forward error message to login page
-          this.router.navigateByUrl('');
-        });
-        
+        userCredential.user.sendEmailVerification();
+        this.auth.signOut();
+        this.router.navigateByUrl('');
     })
     .catch((error) => {
       const errorCode = error.code;
