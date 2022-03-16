@@ -32,7 +32,7 @@ export class ListDetailsPage implements OnInit {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
-        ind: this.listInd
+        list$: this.list$
       },
     });
     modal.present();
@@ -42,7 +42,7 @@ export class ListDetailsPage implements OnInit {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
       componentProps: {
-        ind: this.listInd,
+        list$: this.list$,
         todoInd: todoInd,
       }
     });
