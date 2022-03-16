@@ -14,7 +14,7 @@ export class ListService {
   public init(){
     this.createTodoList("liste des courses");
     this.createTodoList("liste des BG de la classe");
-    this.createTodo("Etienne", "Le bg aux yeux bleus", 1);
+    this.createTodo("Etienne", "Le bg aux yeux bleus qui aimait un peu trop les autres hommes, mais qui suis-je pour juger ?", 1);
   }
 
   public changeName(indice: number, newName: string){

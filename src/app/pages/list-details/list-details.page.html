@@ -26,11 +26,12 @@
         <ion-checkbox color="primary" [(ngModel)]="todo.isDone" (click)="onEvent($event)" slot="end" class="todoCheckbox"></ion-checkbox>
       </ion-item>
 
-      <ion-list slot="content">
-        <ion-item>
-          <ion-label>{{todo.description}}</ion-label>
-        </ion-item>
-      </ion-list>
+     <!-- <ion-list slot="content"> -->
+        <div class="cardContent" slot="content">
+          <p class="cardText">{{todo.description}}</p>
+          <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
+        </div>
+      <!-- </ion-list> -->
 
 
     </ion-accordion>
