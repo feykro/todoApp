@@ -12,18 +12,18 @@ export class CreateTodoComponent implements OnInit {
 
   todoName: string = '';
   description: string = '';
-  ind : number;
-  todoInd : number;
+  ind: number;
+  todoInd: number;
 
-  constructor(private listService : ListService, private modalController : ModalController) { }
+  constructor(private listService: ListService, private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  dismissModal(){
+  dismissModal() {
     this.modalController.dismiss();
   }
 
-  addTodo(){
+  addTodo() {
     this.listService.createTodo(this.todoName, this.description, this.ind);
     this.modalController.dismiss();
   }

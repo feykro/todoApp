@@ -13,23 +13,23 @@ import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.comp
 })
 export class ListDetailsPage implements OnInit {
 
-  public currentList : List;
-  public listInd : number;
+  public currentList: List;
+  public listInd: number;
 
-  constructor(public listService : ListService, public modalController: ModalController, private route: ActivatedRoute) {}
+  constructor(public listService: ListService, public modalController: ModalController, private route: ActivatedRoute) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.listInd = params['listInd'];
       this.currentList = this.listService.getList(this.listInd);
-   });
+    });
   }
 
-  onEvent(event){
+  onEvent(event) {
     event.stopPropagation();
   }
 
-  async addNewTodo(){
+  async addNewTodo() {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
@@ -39,7 +39,7 @@ export class ListDetailsPage implements OnInit {
     modal.present();
   }
 
-  async modifyTodo(todoInd: number){
+  async modifyTodo(todoInd: number) {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
       componentProps: {

@@ -11,9 +11,9 @@ import { LoginLostpasswordComponent } from 'src/app/modals/login-lostpassword/lo
 })
 export class LoginPage implements OnInit {
 
-  email : string = "";
-  password : string = "";
-  message : string = "";
+  email: string = "";
+  password: string = "";
+  message: string = "";
 
   constructor(private router: Router,
     public auth: AngularFireAuth,
@@ -31,24 +31,24 @@ export class LoginPage implements OnInit {
     console.log("login email = " + this.email);
     console.log("login password = " + this.password);
 
-    
-    this.auth.signInWithEmailAndPassword(this.email, this.password)
-    .then((userCredential) => {
-      console.log("login OK, userCredential = " + userCredential + ", redirect to /home");
-      this.router.navigateByUrl('/home');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("login KO, errorCode = " + errorCode + ", errorMessage = " + errorMessage);
 
-      this.message = error.message;
-    });
+    this.auth.signInWithEmailAndPassword(this.email, this.password)
+      .then((userCredential) => {
+        console.log("login OK, userCredential = " + userCredential + ", redirect to /home");
+        this.router.navigateByUrl('/home');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("login KO, errorCode = " + errorCode + ", errorMessage = " + errorMessage);
+
+        this.message = error.message;
+      });
 
     console.log("login end");
   }
 
-  async lostPassword(){
+  async lostPassword() {
     const modal = await this.modalController.create({
       component: LoginLostpasswordComponent,
     });

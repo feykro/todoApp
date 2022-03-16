@@ -9,7 +9,7 @@ describe('ModifyListComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModifyListComponent ],
+      declarations: [ModifyListComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

@@ -9,7 +9,7 @@ describe('LoginLostpasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginLostpasswordComponent ],
+      declarations: [LoginLostpasswordComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

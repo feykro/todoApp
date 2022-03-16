@@ -9,7 +9,7 @@ describe('ModifyTodoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModifyTodoComponent ],
+      declarations: [ModifyTodoComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

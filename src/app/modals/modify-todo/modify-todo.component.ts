@@ -11,18 +11,18 @@ export class ModifyTodoComponent implements OnInit {
 
   todoName: string = '';
   description: string = '';
-  ind : number;
+  ind: number;
   todoInd: number;
 
-  constructor(private listService : ListService, private modalController : ModalController) { }
+  constructor(private listService: ListService, private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  dismissModal(){
+  dismissModal() {
     this.modalController.dismiss();
   }
 
-  modifyTodo(){
+  modifyTodo() {
     this.listService.modifyTodo(this.ind, this.todoInd, this.todoName, this.description);
     this.modalController.dismiss();
   }

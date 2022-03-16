@@ -21,5 +21,5 @@ import { ListDetailsPage } from './list-details.page';
 })
 
 export class ListDetailsPageModule {
-  
+
 }

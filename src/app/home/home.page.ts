@@ -11,25 +11,25 @@ import { CreateListComponent } from '../modals/create-list/create-list.component
 })
 export class HomePage {
 
-  constructor(public listService : ListService, public modalController: ModalController) {}
+  constructor(public listService: ListService, public modalController: ModalController) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.listService.init();
   }
 
-  addTodoList(){
+  addTodoList() {
     this.listService.createTodoList("newList");
     console.log("bonjour");
   }
 
-  async addNewTodoList(){
+  async addNewTodoList() {
     const modal = await this.modalController.create({
       component: CreateListComponent,
     });
     modal.present();
   }
 
-  async modifyTodoListName(indice : number){
+  async modifyTodoListName(indice: number) {
     const modal = await this.modalController.create({
       component: ModifyListComponent,
       componentProps: {
@@ -39,7 +39,7 @@ export class HomePage {
     modal.present();
   }
 
-  removeFromTodoList(indice : number){
+  removeFromTodoList(indice: number) {
     this.listService.removeTodoList(indice);
     console.log(this.listService.getTodoLists());
   }

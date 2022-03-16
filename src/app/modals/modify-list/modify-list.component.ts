@@ -9,22 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModifyListComponent implements OnInit {
 
-  public newName : string = '';
-  ind : number;
+  public newName: string = '';
+  ind: number;
 
-  constructor(private listService : ListService, private modalController : ModalController) { }
+  constructor(private listService: ListService, private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  modifyTodoListName(indice : number){
-    if(this.newName != ''){
+  modifyTodoListName(indice: number) {
+    if (this.newName != '') {
       this.listService.changeName(indice, this.newName);
     }
     this.modalController.dismiss();
     this.newName = '';
   }
 
-  dismissModal(){
+  dismissModal() {
     this.modalController.dismiss();
   }
 

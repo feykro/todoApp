@@ -9,7 +9,7 @@ describe('CreateTodoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateTodoComponent ],
+      declarations: [CreateTodoComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

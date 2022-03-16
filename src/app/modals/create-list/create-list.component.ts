@@ -10,14 +10,14 @@ import { Component, OnInit } from '@angular/core';
 
 export class CreateListComponent implements OnInit {
 
-  public newTodoListName : string = '';
+  public newTodoListName: string = '';
 
-  constructor(private listService : ListService, private modalController : ModalController) { }
+  constructor(private listService: ListService, private modalController: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  addTodoList(){
-    if(this.newTodoListName === ''){
+  addTodoList() {
+    if (this.newTodoListName === '') {
       this.newTodoListName = 'default';
     }
     this.listService.createTodoList(this.newTodoListName);
@@ -25,7 +25,7 @@ export class CreateListComponent implements OnInit {
     this.newTodoListName = '';
   }
 
-  dismissModal(){
+  dismissModal() {
     this.modalController.dismiss();
   }
 

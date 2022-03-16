@@ -18,7 +18,7 @@ export class SettingsPage implements OnInit {
 
   logout() {
     console.log("logout start");
-    
+
     this.auth.signOut();
 
     this.router.navigateByUrl('');

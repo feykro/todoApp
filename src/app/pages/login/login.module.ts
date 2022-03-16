@@ -18,4 +18,4 @@ import { LoginLostpasswordComponent } from 'src/app/modals/login-lostpassword/lo
   ],
   declarations: [LoginPage, LoginLostpasswordComponent]
 })
-export class LoginPageModule {}
+export class LoginPageModule { }

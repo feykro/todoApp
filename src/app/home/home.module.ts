@@ -18,4 +18,4 @@ import { HomePageRoutingModule } from './home-routing.module';
   ],
   declarations: [HomePage, CreateListComponent, ModifyListComponent]
 })
-export class HomePageModule {}
+export class HomePageModule { }
