@@ -1,3 +1,24 @@
 .homeToolBar {
     text-align: center;
   }
+
+  .cardContent {
+    columns: 2;
+    align-items: center;
+    max-height: 25vh;
+
+    .cardText {
+      display: float;
+      max-width: 90%;
+      height: auto;
+      margin-left: 10%;
+    }
+    
+    .cardImage {
+      //padding: 5px 5px 5px 5px; //haut droit bas gauche
+      border: 10px;
+      max-height: 24vh;
+      height: 24vh;
+      text-align: center;
+    }
+  }
