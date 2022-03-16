@@ -31,23 +31,24 @@ export class ListService {
 
   }
 
-  public changeName(indice: number, newName: string) {
-    this.todoLists[indice].name = newName;
+  public changeName(id: string, newName: string) {
+    this.afs.doc<List>(`ShoppingLists/{id}`).update({ name: newName });
   }
 
   public createTodoList(name: string) {
-    var newList: List = new List(name);
+    const newList: List = new List(name);
     this.todoLists.push(newList);
   }
 
   public createTodo(name: string, description: string, id: number) {
-    let newTodo = new Todo(name, description);
+    const newTodo = new Todo(name, description);
+
+
     this.todoLists[id].todos.push(newTodo);
   }
 
   public getList(id: number): Observable<List> {
-    // TODO passer en afs
-    return this.todoLists[id];
+    return this.afs.doc<List>(`ShoppingLists/{id}`).valueChanges({ idField: "id" });
   }
 
 
