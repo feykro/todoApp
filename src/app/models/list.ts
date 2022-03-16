@@ -1,21 +1,13 @@
 import { Todo } from "./todo";
 
 export class List {
+    id?: string;
     name: string;
     todos: Todo[];
+    amountCompleted?: number;
 
     constructor(name: string) {
         this.name = name;
         this.todos = [];
-    }
-
-    getAmountCompleted(): number {
-        let res = 0;
-        for (var t of this.todos) {
-            if (t.isDone) {
-                res++;
-            }
-        }
-        return res;
     }
 }
