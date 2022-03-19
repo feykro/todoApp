@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
-import { AuthPipe, canActivate, emailVerified, loggedIn } from '@angular/fire/compat/auth-guard';
-import { AngularFireAuthGuard, hasCustomClaim, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/compat/auth-guard';
+import { canActivate } from '@angular/fire/compat/auth-guard';
+import { emailVerified } from '@angular/fire/auth-guard'
+import { hasCustomClaim } from '@angular/fire/compat/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './guard/auth.guard';
+import { pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // cf https://github.com/angular/angularfire/blob/master/docs/auth/router-guards.md
 const adminOnly = () => hasCustomClaim('admin');
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
-const redirectLoggedInToHome = () => redirectLoggedInTo('home');
-const emailVerifiedLogin = (user) => emailVerified(user);
 
+const redirectUnverifiedTo = (redirect: any[]) => pipe(emailVerified, map(emailVerified => emailVerified || redirect));
+const redirectUnauthorizedToLogin = () => redirectUnverifiedTo(['']);
+
+const redirectVerifiedTo = (redirect: any[]) => pipe(emailVerified, map(emailVerified => emailVerified ? redirect : true));
+const redirectLoggedInAndVerifiedToHome = () => redirectVerifiedTo(['home']);
 
 const routes: Routes = [
   {
@@ -25,8 +29,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
-    // TODO faire marcher ça : canActivate: [AuthGuard]
-    ...canActivate(redirectLoggedInToHome)
+    ...canActivate(redirectLoggedInAndVerifiedToHome)
   },
   {
     path: 'settings',
@@ -36,7 +39,7 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule),
-    ...canActivate(redirectLoggedInToHome) // logged user has no reason to register a new account
+    ...canActivate(redirectLoggedInAndVerifiedToHome) // logged user has no reason to register a new account
   },
 
 ];
