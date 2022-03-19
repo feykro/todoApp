@@ -33,11 +33,11 @@ export class HomePage {
     modal.present();
   }
 
-  async modifyTodoListName(indice: number) {
+  async modifyTodoListName(id: string) {
     const modal = await this.modalController.create({
       component: ModifyListComponent,
       componentProps: {
-        ind: indice
+        id: id
       },
     });
     modal.present();
