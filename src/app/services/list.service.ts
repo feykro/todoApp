@@ -14,13 +14,6 @@ export class ListService {
 
   constructor(private afs: AngularFirestore) { }
 
-  public init() {
-    this.createTodoList("liste des courses");
-    this.createTodoList("liste des BG de la classe");
-    this.createTodo("Etienne", "Le bg aux yeux bleus qui aimait un peu trop les autres hommes, mais qui suis-je pour juger ?", 1);
-  }
-
-
   public getTodoLists() {
     return this.afs.collection<List>('ShoppingLists').valueChanges({ idField: "id" })
       .pipe(tap(console.log),
@@ -28,7 +21,6 @@ export class ListService {
           ...list,
           amountCompleted: list.todos.filter(todo => todo.isDone).length
         }))));
-
   }
 
   public changeName(id: string, newName: string) {

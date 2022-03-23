@@ -18,6 +18,7 @@ export class HomePage {
   constructor(public listService: ListService, public modalController: ModalController) { }
 
   ngOnInit() {
+    console.log('ngOnInit start')
     this.lists$ = this.listService.getTodoLists();
   }
 
