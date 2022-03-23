@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class ListService {
 
-  private todoLists: List[] = []; // liste de todoList aka List
+  private todoLists: List[] = []; // TODO à sortir
 
   constructor(private afs: AngularFirestore) { }
 
@@ -24,12 +24,14 @@ export class ListService {
   }
 
   public changeName(id: string, newName: string) {
-    this.afs.doc<List>(`ShoppingLists/{id}`).update({ name: newName });
+    this.afs.doc<List>(`ShoppingLists/${id}`).update({ name: newName });
   }
 
   public createTodoList(name: string) {
     const newList: List = new List(name);
-    this.todoLists.push(newList);
+
+
+    this.todoLists.push(newList); // TODO à sortir
   }
 
   public createTodo(name: string, description: string, id: number) {
@@ -39,13 +41,13 @@ export class ListService {
     this.todoLists[id].todos.push(newTodo);
   }
 
-  public getList(id: number): Observable<List> {
-    return this.afs.doc<List>(`ShoppingLists/{id}`).valueChanges({ idField: "id" });
+  public getList(id: string): Observable<List> {
+    return this.afs.doc<List>(`ShoppingLists/${id}`).valueChanges({ idField: "id" });
   }
 
 
-  public removeTodoList(id: number) {
-    this.todoLists.splice(id, 1);
+  public removeTodoList(id: string) {
+    this.afs.doc<List>(`ShoppingLists/${id}`).delete();
   }
 
   public modifyTodo(listId: number, todoId: number, newName: string, newDescription: string) {

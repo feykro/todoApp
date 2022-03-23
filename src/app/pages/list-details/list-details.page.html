@@ -7,7 +7,7 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title slot="start">{{currentList.name}}</ion-title>
+    <ion-title slot="start">{{(list$ | async)?.name}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/settings']">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
@@ -19,23 +19,24 @@
 <ion-content>
   <ion-list>
     <ion-accordion-group>
+      <ng-container *ngIf="list$ | async as list">
 
-      <ion-accordion *ngFor="let todo of currentList.todos; index as position">
-        <ion-item slot="header">
-          <label>{{todo.name}}</label>
-          <ion-checkbox color="primary" [(ngModel)]="todo.isDone" (click)="onEvent($event)" slot="end"
-            class="todoCheckbox"></ion-checkbox>
-        </ion-item>
+        <ion-accordion *ngFor="let todo of list.todos">
+          <ion-item slot="header">
+            <label>{{todo.name}}</label>
+            <ion-checkbox color="primary" [(ngModel)]="todo.isDone" (click)="onEvent($event)" slot="end"
+              class="todoCheckbox"></ion-checkbox>
+          </ion-item>
 
-        <!-- <ion-list slot="content"> -->
-        <div class="cardContent" slot="content">
-          <p class="cardText">{{todo.description}}</p>
-          <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
-        </div>
-        <!-- </ion-list> -->
+          <!-- <ion-list slot="content"> -->
+          <div class="cardContent" slot="content">
+            <p class="cardText">{{todo.description}}</p>
+            <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
+          </div>
+          <!-- </ion-list> -->
 
-
-      </ion-accordion>
+        </ion-accordion>
+      </ng-container>
     </ion-accordion-group>
   </ion-list>
 

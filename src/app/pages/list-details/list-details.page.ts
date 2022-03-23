@@ -5,7 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { List } from 'src/app/models/list';
 import { ListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-details',
@@ -14,14 +14,14 @@ import { Observable } from 'rxjs';
 })
 export class ListDetailsPage implements OnInit {
 
-  public currentList: List;
-  public list$: Observable<List>;
+  public list$: Observable<List> = EMPTY; // TODO à sortir
 
   constructor(public listService: ListService, public modalController: ModalController, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.list$ = this.listService.getList(this.route.snapshot.params['listInd']);
-
+    let id: string = this.route.snapshot.params['id'];
+    console.log(id);
+    this.list$ = this.listService.getList(id);
   }
 
   onEvent(event) {

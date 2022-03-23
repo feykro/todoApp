@@ -44,8 +44,8 @@ export class HomePage {
     modal.present();
   }
 
-  removeFromTodoList(indice: number) {
-    this.listService.removeTodoList(indice);
+  removeTodoList(id: string) {
+    this.listService.removeTodoList(id);
     console.log(this.listService.getTodoLists());
   }
 
