@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { List } from 'src/app/models/list';
 import { ListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
+import { EMPTY, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-details',
@@ -13,16 +14,14 @@ import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.comp
 })
 export class ListDetailsPage implements OnInit {
 
-  public currentList: List;
-  public listInd: number;
+  public list$: Observable<List> = EMPTY; // TODO à sortir
 
   constructor(public listService: ListService, public modalController: ModalController, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.listInd = params['listInd'];
-      this.currentList = this.listService.getList(this.listInd);
-    });
+    let id: string = this.route.snapshot.params['id'];
+    console.log(id);
+    this.list$ = this.listService.getList(id);
   }
 
   onEvent(event) {
@@ -33,7 +32,7 @@ export class ListDetailsPage implements OnInit {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
-        ind: this.listInd
+        list$: this.list$
       },
     });
     modal.present();
@@ -43,7 +42,7 @@ export class ListDetailsPage implements OnInit {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
       componentProps: {
-        ind: this.listInd,
+        list$: this.list$,
         todoInd: todoInd,
       }
     });

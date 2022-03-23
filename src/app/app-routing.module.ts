@@ -9,10 +9,10 @@ import { map } from 'rxjs/operators';
 // cf https://github.com/angular/angularfire/blob/master/docs/auth/router-guards.md
 const adminOnly = () => hasCustomClaim('admin');
 
-const redirectUnverifiedTo = (redirect: any[]) => pipe(emailVerified, map(emailVerified => emailVerified || redirect));
+const redirectUnverifiedTo = (redirect: string[]) => pipe(emailVerified, map(emailVerified => emailVerified || redirect));
 const redirectUnauthorizedToLogin = () => redirectUnverifiedTo(['']);
 
-const redirectVerifiedTo = (redirect: any[]) => pipe(emailVerified, map(emailVerified => emailVerified ? redirect : true));
+const redirectVerifiedTo = (redirect: string[]) => pipe(emailVerified, map(emailVerified => emailVerified ? redirect : true));
 const redirectLoggedInAndVerifiedToHome = () => redirectVerifiedTo(['home']);
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin)
   },
   {
-    path: 'list-details',
+    path: 'list-details/:id',
     loadChildren: () => import('./pages/list-details/list-details.module').then(m => m.ListDetailsPageModule),
     ...canActivate(redirectUnauthorizedToLogin)
   },
