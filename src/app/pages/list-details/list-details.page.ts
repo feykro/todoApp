@@ -15,13 +15,13 @@ import { EMPTY, Observable } from 'rxjs';
 export class ListDetailsPage implements OnInit {
 
   public list$: Observable<List> = EMPTY; // TODO à sortir
+  public id: string;
 
   constructor(public listService: ListService, public modalController: ModalController, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let id: string = this.route.snapshot.params['id'];
-    console.log(id);
-    this.list$ = this.listService.getList(id);
+    this.id = this.route.snapshot.params['id'];
+    this.list$ = this.listService.getList(this.id);
   }
 
   onEvent(event) {
@@ -32,6 +32,7 @@ export class ListDetailsPage implements OnInit {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
       componentProps: {
+        listId: this.id,
         list$: this.list$
       },
     });

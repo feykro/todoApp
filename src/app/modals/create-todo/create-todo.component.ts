@@ -14,7 +14,7 @@ export class CreateTodoComponent implements OnInit {
 
   todoName: string = '';
   description: string = '';
-  todoInd: number;
+  listId: string;
   list$: Observable<List>;
 
   constructor(private listService: ListService, private modalController: ModalController) { }
@@ -26,8 +26,7 @@ export class CreateTodoComponent implements OnInit {
   }
 
   addTodo() {
-    // TODO: appeler la bonne méthode modifiée dans le service
-    // this.listService.createTodo(this.todoName, this.description, this.ind);
+    this.listService.createTodo(this.todoName, this.description, this.listId);
     this.modalController.dismiss();
   }
 }

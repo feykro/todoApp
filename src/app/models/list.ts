@@ -3,7 +3,7 @@ import { Todo } from "./todo";
 export class List {
     id?: string;
     name: string;
-    todos: Todo[];
+    todos: Todo[] = [];
     amountCompleted?: number;
 
     constructor(name: string) {

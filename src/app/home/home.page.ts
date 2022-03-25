@@ -1,5 +1,5 @@
-import { ModifyListComponent } from './../modals/modify-list/modify-list.component';
-import { ListService } from './../services/list.service';
+import { ModifyListComponent } from '../modals/modify-list/modify-list.component';
+import { ListService } from '../services/list.service';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
@@ -18,13 +18,7 @@ export class HomePage {
   constructor(public listService: ListService, public modalController: ModalController) { }
 
   ngOnInit() {
-    console.log('ngOnInit start')
     this.lists$ = this.listService.getTodoLists();
-  }
-
-  addTodoList() {
-    this.listService.createTodoList("newList");
-    console.log("bonjour");
   }
 
   async addNewTodoList() {
