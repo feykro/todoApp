@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { Location } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -10,7 +10,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(private router: Router, public auth: AngularFireAuth) { }
+  constructor(public auth: AngularFireAuth, private router: Router, private location: Location) { }
 
   ngOnInit() {
     console.log("ngOnInit start");
@@ -23,6 +23,10 @@ export class SettingsPage implements OnInit {
 
     this.router.navigateByUrl('');
     console.log("logout end");
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
