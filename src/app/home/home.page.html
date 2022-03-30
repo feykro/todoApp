@@ -10,10 +10,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-searchbar showCancelButton="focus"></ion-searchbar>
+  <ion-searchbar showCancelButton="focus" [formControl]="searchField" (ionChange)="updateSearchField()" debounce="100">
+  </ion-searchbar>
   <ion-list>
     <ng-container *ngIf="shoppingLists$ | async as shoppingLists">
-      <ion-item-sliding *ngFor="let shoppingList of shoppingLists" class="myItem">
+      <ion-item-sliding *ngFor="let shoppingList of filteredList$ | async" class="myItem">
 
         <ion-item-options *ngIf="userCanWrite(shoppingList)" side="start">
           <ion-item-option (click)="modifyShoppingList(shoppingList)" expandable>
