@@ -6,6 +6,7 @@ import { List } from 'src/app/models/list';
 import { ListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
 import { EMPTY, Observable } from 'rxjs';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-list-details',
@@ -14,10 +15,10 @@ import { EMPTY, Observable } from 'rxjs';
 })
 export class ListDetailsPage implements OnInit {
 
-  public list$: Observable<List> = EMPTY; // TODO à sortir
-  public id: string;
+  private list$: Observable<List> = EMPTY; // TODO à sortir
+  private id: string;
 
-  constructor(public listService: ListService, public modalController: ModalController, private route: ActivatedRoute) { }
+  constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -33,21 +34,25 @@ export class ListDetailsPage implements OnInit {
       component: CreateTodoComponent,
       componentProps: {
         listId: this.id,
-        list$: this.list$
+        // list$: this.list$
       },
     });
     modal.present();
   }
 
-  async modifyTodo(todoInd: number) {
+  async modifyTodo(todoIn: Todo) {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
       componentProps: {
-        list$: this.list$,
-        todoInd: todoInd,
+        todo: todoIn,
+        id: this.id
       }
     });
     modal.present();
+  }
+
+  removeTodo(todo: Todo) {
+    this.listService.removeTodo(this.id, todo);
   }
 
 }

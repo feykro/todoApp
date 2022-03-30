@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ListService } from 'src/app/services/list.service';
 import { List } from 'src/app/models/list';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-create-todo',
@@ -12,10 +13,9 @@ import { List } from 'src/app/models/list';
 
 export class CreateTodoComponent implements OnInit {
 
-  todoName: string = '';
-  description: string = '';
-  listId: string;
-  list$: Observable<List>;
+  @Input() listId: string;
+  todo: Todo = new Todo('', '');
+  // list$: Observable<List>;
 
   constructor(private listService: ListService, private modalController: ModalController) { }
 
@@ -26,7 +26,7 @@ export class CreateTodoComponent implements OnInit {
   }
 
   addTodo() {
-    this.listService.createTodo(this.todoName, this.description, this.listId);
+    this.listService.createTodo(this.listId, this.todo);
     this.modalController.dismiss();
   }
 }

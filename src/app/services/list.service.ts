@@ -1,11 +1,11 @@
-import { Todo } from '../models/todo';
 import { Injectable } from '@angular/core';
 import { List } from '../models/list';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { EMPTY } from 'rxjs';
-import { arrayUnion } from '@angular/fire/firestore'
+import { arrayRemove, arrayUnion } from '@angular/fire/firestore'
+import { Todo } from '../models/todo';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +37,12 @@ export class ListService {
     this.afs.collection('ShoppingLists').add({ name: newName }).then(doc => doc.update({ todos: [] }));
   }
 
-  public createTodo(todoName: string, todoDescription: string, id: string) {
+  public createTodo(id: string, todo: Todo) {
     this.afs.doc<any>(`ShoppingLists/${id}`).update({
       todos: arrayUnion({
-        name: todoName,
-        isDone: false,
-        description: todoDescription
+        name: todo.name,
+        isDone: todo.isDone,
+        description: todo.description
       })
     });
   }
@@ -55,14 +55,18 @@ export class ListService {
     this.afs.doc<List>(`ShoppingLists/${id}`).delete();
   }
 
-  // public modifyTodo(listId: number, todoId: number, newName: string, newDescription: string) {
-  //   let list: List = this.todoLists[listId];
-  //   list.todos[todoId].description = newDescription;
-  //   list.todos[todoId].name = newName;
-  // }
+  public modifyTodo(id: string, todo: Todo) {
+    this.createTodo(id, todo);
+  }
 
-  // public removeTodo(idList: number, idTodo: number) {
-  //   this.todoLists[idList].todos.splice(idTodo, 1);
-  // }
+  public removeTodo(idList: string, todo: Todo) {
+    this.afs.doc<any>(`ShoppingLists/${idList}`).update({
+      todos: arrayRemove({
+        name: todo.name,
+        isDone: todo.isDone,
+        description: todo.description
+      })
+    });
+  }
 
 }
