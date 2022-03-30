@@ -7,6 +7,7 @@ import { ListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
 import { EMPTY, Observable } from 'rxjs';
 import { Todo } from 'src/app/models/todo';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-list-details',
@@ -15,10 +16,10 @@ import { Todo } from 'src/app/models/todo';
 })
 export class ListDetailsPage implements OnInit {
 
-  private list$: Observable<List> = EMPTY; // TODO à sortir
+  public list$: Observable<List> = EMPTY; // TODO à sortir
   private id: string;
 
-  constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute) { }
+  constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -27,6 +28,10 @@ export class ListDetailsPage implements OnInit {
 
   onEvent(event) {
     event.stopPropagation();
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   async addNewTodo() {
