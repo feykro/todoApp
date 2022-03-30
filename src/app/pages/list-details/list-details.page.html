@@ -20,7 +20,6 @@
   <ion-list>
     <ion-accordion-group>
       <ng-container *ngIf="list$ | async as list">
-
         <ion-accordion *ngFor="let todo of list.todos">
           <ion-item slot="header">
             <label>{{todo.name}}</label>
@@ -30,9 +29,12 @@
 
           <div class="cardContent" slot="content">
             <p class="cardText">{{todo.description}}</p>
+            <div>
+              <ion-button (click)="modifyTodo(todo)">Modifier</ion-button>
+              <ion-button (click)="removeTodo(todo)">Supprimer</ion-button>
+            </div>
             <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
           </div>
-
         </ion-accordion>
       </ng-container>
     </ion-accordion-group>

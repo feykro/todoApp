@@ -10,9 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-searchbar showCancelButton="focus"></ion-searchbar>
-
   <ion-list>
     <ion-item-sliding *ngFor="let list of lists$ | async" class="myItem">
 
@@ -29,9 +27,10 @@
       </ion-item-options>
 
       <ion-item [routerLink]="['/list-details/'+list.id]"
-        [color]="list.amountCompleted === list.todos.length ? 'primary' : 'secondary'">
+        [color]="list.todos ? (list.amountCompleted === list.todos.length ? 'primary' : 'secondary') : 'tertiary'">
         <ion-label item-left>{{list.name}}</ion-label>
-        <ion-label class="counter" item-right>{{list.amountCompleted}}/{{list.todos.length}}</ion-label>
+        <ion-label class="counter" item-right>{{list.amountCompleted}}/{{list.todos ? list.todos.length : 0}}
+        </ion-label>
       </ion-item>
 
     </ion-item-sliding>
