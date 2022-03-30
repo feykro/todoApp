@@ -33,7 +33,7 @@
               <ion-button (click)="modifyTodo(todo)">Modifier</ion-button>
               <ion-button (click)="removeTodo(todo)">Supprimer</ion-button>
             </div>
-            <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
+            <ion-img class="cardImage" (click)="displayImage()" src="assets/photo-placeholder/lait_photo.png"></ion-img>
           </div>
         </ion-accordion>
       </ng-container>
