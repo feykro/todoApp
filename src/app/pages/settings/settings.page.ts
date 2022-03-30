@@ -10,7 +10,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(private router: Router, public auth: AngularFireAuth, private location: Location) { }
+  constructor(public auth: AngularFireAuth, private router: Router, private location: Location) { }
 
   ngOnInit() {
     console.log("ngOnInit start");

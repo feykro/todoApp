@@ -1,8 +1,8 @@
 import { ModifyListComponent } from '../modals/modify-list/modify-list.component';
+import { CreateListComponent } from '../modals/create-list/create-list.component';
 import { ListService } from '../services/list.service';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { CreateListComponent } from '../modals/create-list/create-list.component';
 import { Observable } from 'rxjs';
 import { List } from '../models/list';
 
