@@ -7,7 +7,12 @@
       </ion-button>
     </ion-buttons>
 
-    <ion-title slot="start">{{(list$ | async)?.name}}</ion-title>
+    <ng-container *ngIf="shoppingList$ | async as shoppingList">
+      <ion-title slot="start">
+        {{shoppingList.name}}
+      </ion-title>
+    </ng-container>
+
     <ion-buttons slot="primary">
       <ion-button [routerLink]="['/settings']">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
@@ -19,29 +24,34 @@
 <ion-content>
   <ion-list>
     <ion-accordion-group>
-      <ng-container *ngIf="list$ | async as list">
-        <ion-accordion *ngFor="let todo of list.todos">
-          <ion-item slot="header">
-            <label>{{todo.name}}</label>
-            <ion-checkbox color="primary" [(ngModel)]="todo.isDone" (click)="onEvent($event)" slot="end"
-              class="todoCheckbox"></ion-checkbox>
-          </ion-item>
 
-          <div class="cardContent" slot="content">
-            <p class="cardText">{{todo.description}}</p>
-            <div>
-              <ion-button (click)="modifyTodo(todo)">Modifier</ion-button>
-              <ion-button (click)="removeTodo(todo)">Supprimer</ion-button>
+      <ng-container *ngIf="shoppingList$ | async as shoppingList">
+        <ng-container *ngIf="shoppingList.itemsToShop$ | async as itemsToShop">
+          <ion-accordion *ngFor="let itemToShop of itemsToShop">
+            <ion-item slot="header">
+              <label>{{itemToShop.name}}</label>
+              <ion-checkbox color="primary" [(ngModel)]="itemToShop.isDone" (click)="onEvent($event, itemToShop)"
+                slot="end" class="itemToShopCheckbox">
+              </ion-checkbox>
+            </ion-item>
+            <div class="cardContent" slot="content">
+              <p class="cardText">{{itemToShop.description}}</p>
+              <p class="cardText">× {{itemToShop.quantity}}</p>
+              <div>
+                <ion-button (click)="modifyItemToShop(itemToShop)">Modifier</ion-button>
+                <ion-button (click)="removeItemToShop(itemToShop)">Supprimer</ion-button>
+              </div>
+              <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
             </div>
-            <ion-img class="cardImage" src="assets/photo-placeholder/lait_photo.png"></ion-img>
-          </div>
-        </ion-accordion>
+          </ion-accordion>
+        </ng-container>
       </ng-container>
+
     </ion-accordion-group>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="addNewTodo()">
+    <ion-fab-button (click)="createItemToShop()">
       <ion-icon name="add-circle-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

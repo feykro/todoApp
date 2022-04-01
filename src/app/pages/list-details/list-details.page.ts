@@ -2,11 +2,11 @@ import { ModifyTodoComponent } from './../../modals/modify-todo/modify-todo.comp
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { List } from 'src/app/models/list';
-import { ListService } from 'src/app/services/list.service';
+import { ShoppingList } from 'src/app/models/shopping-list';
+import { ShoppingListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
-import { EMPTY, Observable } from 'rxjs';
-import { Todo } from 'src/app/models/todo';
+import { Observable } from 'rxjs';
+import { ItemToShop } from 'src/app/models/item-to-shop';
 
 @Component({
   selector: 'app-list-details',
@@ -15,44 +15,54 @@ import { Todo } from 'src/app/models/todo';
 })
 export class ListDetailsPage implements OnInit {
 
-  private list$: Observable<List> = EMPTY; // TODO à sortir
-  private id: string;
+  public shoppingList$: Observable<ShoppingList>;
+  private shoppingListId: string;
 
-  constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute) { }
+  constructor(private shoppingListService: ShoppingListService, private modalController: ModalController, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
-    this.list$ = this.listService.getList(this.id);
+    this.shoppingListId = this.route.snapshot.params['id'];
+    this.shoppingList$ = this.shoppingListService.getShoppingList(this.shoppingListId);
   }
 
-  onEvent(event) {
+  onEvent(event, itemToShop: ItemToShop) {
+
+    console.log(itemToShop);
+    itemToShop.isDone = !itemToShop.isDone;
+    console.log(itemToShop);
+
+    this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
+
     event.stopPropagation();
   }
 
-  async addNewTodo() {
+  async createItemToShop() {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
+      showBackdrop: true,
+      backdropDismiss: true,
       componentProps: {
-        listId: this.id,
-        // list$: this.list$
+        shoppingListId: this.shoppingListId,
       },
     });
     modal.present();
   }
 
-  async modifyTodo(todoIn: Todo) {
+  async modifyItemToShop(itemToShop: ItemToShop) {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
+      showBackdrop: true,
+      backdropDismiss: true,
       componentProps: {
-        todo: todoIn,
-        id: this.id
+        shoppingListId: this.shoppingListId,
+        itemToShop: itemToShop
       }
     });
     modal.present();
   }
 
-  removeTodo(todo: Todo) {
-    this.listService.removeTodo(this.id, todo);
+  removeItemToShop(itemToShop: ItemToShop) {
+    this.shoppingListService.removeItemToShop(this.shoppingListId, itemToShop.id);
   }
 
 }

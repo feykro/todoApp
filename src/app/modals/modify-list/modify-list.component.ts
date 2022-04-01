@@ -1,6 +1,7 @@
 import { ModalController } from '@ionic/angular';
-import { ListService } from './../../services/list.service';
-import { Component, OnInit } from '@angular/core';
+import { ShoppingListService } from './../../services/list.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ShoppingList } from 'src/app/models/shopping-list';
 
 @Component({
   selector: 'app-modify-list',
@@ -9,19 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModifyListComponent implements OnInit {
 
-  public newName: string = '';
-  private id: string;
+  @Input() shoppingList: ShoppingList;
 
-  constructor(private listService: ListService, private modalController: ModalController) { }
+  constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
   ngOnInit() { }
 
-  modifyTodoListName() {
-    if (this.newName !== '') {
-      this.listService.changeName(this.id, this.newName);
-    }
-    this.modalController.dismiss();
-    this.newName = '';
+  modifyShoppingList() {
+    this.shoppingListService.modifyShoppingList(this.shoppingList);
+    this.dismissModal();
   }
 
   dismissModal() {

@@ -1,72 +1,68 @@
 import { Injectable } from '@angular/core';
-import { List } from '../models/list';
+import { ShoppingList } from '../models/shopping-list';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { EMPTY } from 'rxjs';
-import { arrayRemove, arrayUnion } from '@angular/fire/firestore'
-import { Todo } from '../models/todo';
+import { EMPTY, of } from 'rxjs';
+import { ItemToShop } from '../models/item-to-shop';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListService {
+export class ShoppingListService {
 
-  private shoppingLists: Observable<List[]> = EMPTY; // TODO EMPTY à sortir
+  private shoppingLists: Observable<ShoppingList[]>;
 
   constructor(private afs: AngularFirestore) {
-    this.shoppingLists = this.afs.collection<List>('ShoppingLists').valueChanges({ idField: "id" })
-      .pipe(
-        map(lists => lists.map(list => ({
-          ...list,
-          amountCompleted: list.todos ? list.todos.filter(todo => todo.isDone).length : 0
-        }))));
+    const collection$ = this.afs.collection<ShoppingList>('ShoppingLists').valueChanges({ idField: "id" });
+    this.shoppingLists = collection$.pipe(map(shoppingLists => shoppingLists.map(shoppingList => {
+      shoppingList.itemsToShop$ = this.getItemsToShop(shoppingList.id);
+      return shoppingList;
+    })));
   }
 
   // https://github.com/angular/angularfire/blob/master/docs/firestore/documents.md
 
-  public getTodoLists() {
+  public getShoppingLists(): Observable<ShoppingList[]> {
     return this.shoppingLists;
   }
 
-  public changeName(id: string, newName: string) {
-    this.afs.doc<List>(`ShoppingLists/${id}`).update({ name: newName });
+  public getShoppingList(shoppingListId: string): Observable<ShoppingList> {
+    return this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`)
+      .valueChanges({ idField: "id" }).pipe(map(shoppinglist => {
+        shoppinglist.itemsToShop$ = this.getItemsToShop(shoppingListId);
+        return (shoppinglist);
+      }));
   }
 
-  public createTodoList(newName: string) {
-    this.afs.collection('ShoppingLists').add({ name: newName }).then(doc => doc.update({ todos: [] }));
+  private getItemsToShop(shoppingListId: string): Observable<ItemToShop[]> {
+    return this.afs.collection<ItemToShop>(`ShoppingLists/${shoppingListId}/ItemsToShop`).valueChanges({ idField: "id" });
   }
 
-  public createTodo(id: string, todo: Todo) {
-    this.afs.doc<any>(`ShoppingLists/${id}`).update({
-      todos: arrayUnion({
-        name: todo.name,
-        isDone: todo.isDone,
-        description: todo.description
-      })
-    });
+  public createShoppingList(shoppingList: ShoppingList) {
+    this.afs.collection<ShoppingList>('ShoppingLists').add({ ...shoppingList });
   }
 
-  public getList(id: string): Observable<List> {
-    return this.afs.doc<List>(`ShoppingLists/${id}`).valueChanges({ idField: "id" });
+  public modifyShoppingList(shoppingList: ShoppingList) {
+    // We can only update fields that are not dertermined by firestore
+    // Currently, it is consists only in the shoppingList name
+    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).update({ name: shoppingList.name });
   }
 
-  public removeTodoList(id: string) {
-    this.afs.doc<List>(`ShoppingLists/${id}`).delete();
+  public removeShoppingList(shoppingListId: string) {
+    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).delete();
   }
 
-  public modifyTodo(id: string, todo: Todo) {
-    this.createTodo(id, todo);
+  public createItemToShop(shoppingListId: string, itemToShop: ItemToShop) {
+    this.afs.collection<ItemToShop>(`ShoppingLists/${shoppingListId}/ItemsToShop`).add({ ...itemToShop });
   }
 
-  public removeTodo(idList: string, todo: Todo) {
-    this.afs.doc<any>(`ShoppingLists/${idList}`).update({
-      todos: arrayRemove({
-        name: todo.name,
-        isDone: todo.isDone,
-        description: todo.description
-      })
-    });
+  public modifyItemToShop(shoppingListId: string, itemToShop: ItemToShop) {
+    this.afs.doc<ItemToShop>(`ShoppingLists/${shoppingListId}/ItemsToShop/${itemToShop.id}`).update({ ...itemToShop });
+  }
+
+  public removeItemToShop(shoppingListId: string, itemToShopId: string) {
+    this.afs.doc<ItemToShop>(`ShoppingLists/${shoppingListId}/ItemsToShop/${itemToShopId}`).delete();
   }
 
 }

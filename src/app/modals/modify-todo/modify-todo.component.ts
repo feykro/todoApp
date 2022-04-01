@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IonInput, ModalController } from '@ionic/angular';
-import { List } from 'src/app/models/list';
-import { Todo } from 'src/app/models/todo';
-import { ListService } from 'src/app/services/list.service';
+import { ModalController } from '@ionic/angular';
+import { ItemToShop } from 'src/app/models/item-to-shop';
+import { ShoppingListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-modify-todo',
@@ -10,10 +9,10 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./modify-todo.component.scss'],
 })
 export class ModifyTodoComponent implements OnInit {
-  @Input() todo: Todo;
-  @Input() id: string;
+  @Input() shoppingListId: string;
+  @Input() itemToShop: ItemToShop;
 
-  constructor(private listService: ListService, private modalController: ModalController) { }
+  constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
   ngOnInit() { }
 
@@ -21,8 +20,8 @@ export class ModifyTodoComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  modifyTodo() {
-    this.listService.modifyTodo(this.id, this.todo);
+  modifyItemToShop() {
+    this.shoppingListService.modifyItemToShop(this.shoppingListId, this.itemToShop);
     this.dismissModal();
   }
 
