@@ -1,15 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Settings</ion-title>
+
+    <ion-buttons slot="secondary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
+
 </ion-header>
 
 <ion-content>
-  <ion-button [routerLink]="['/home']">
-    Back
-  </ion-button>
-
-
   <ion-text font>
     <h1>👨</h1>
   </ion-text>

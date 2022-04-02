@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,7 @@ export class RegisterPage implements OnInit {
   hasError: boolean = false;
   errorMessage: string = "";
 
-  constructor(private router: Router, public auth: AngularFireAuth) { }
+  constructor(public auth: AngularFireAuth, private router: Router, private location: Location) { }
 
   ngOnInit() {
   }
@@ -44,6 +45,10 @@ export class RegisterPage implements OnInit {
       });
 
     console.log("register end");
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
