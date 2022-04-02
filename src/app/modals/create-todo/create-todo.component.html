@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Creer une todoList</ion-title>
+    <ion-title>Créer un item</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Annuler</ion-button>
     </ion-buttons>
@@ -10,18 +10,22 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">name</ion-label>
-      <ion-input [(ngModel)]="todo.name" placeholder="titre du todo"></ion-input>
+      <ion-label position="stacked">Nom</ion-label>
+      <ion-input [(ngModel)]="itemToShop.name" placeholder="titre du l'item"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="stacked">description</ion-label>
-      <ion-input [(ngModel)]="todo.description" placeholder="description du todo"></ion-input>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input [(ngModel)]="itemToShop.description" placeholder="description de l'item"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Quantité</ion-label>
+      <ion-input [(ngModel)]="itemToShop.quantity" placeholder="0"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-  <ion-button (click)="addTodo()" color="success">
-    Valider
+  <ion-button (click)="createItemToShop()" color="success">
+    Créer
   </ion-button>
 </ion-fab>

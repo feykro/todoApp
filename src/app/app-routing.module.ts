@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { canActivate } from '@angular/fire/compat/auth-guard';
 import { emailVerified } from '@angular/fire/auth-guard'
-import { hasCustomClaim } from '@angular/fire/compat/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 // cf https://github.com/angular/angularfire/blob/master/docs/auth/router-guards.md
-const adminOnly = () => hasCustomClaim('admin');
-
 const redirectUnverifiedTo = (redirect: string[]) => pipe(emailVerified, map(emailVerified => emailVerified || redirect));
 const redirectUnauthorizedToLogin = () => redirectUnverifiedTo(['']);
 

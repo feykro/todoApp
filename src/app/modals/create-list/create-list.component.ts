@@ -1,6 +1,8 @@
 import { ModalController } from '@ionic/angular';
-import { ListService } from './../../services/list.service';
+import { ShoppingListService } from './../../services/list.service';
 import { Component, OnInit } from '@angular/core';
+import { ShoppingList } from 'src/app/models/shopping-list';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-create-list',
@@ -10,19 +12,20 @@ import { Component, OnInit } from '@angular/core';
 
 export class CreateListComponent implements OnInit {
 
-  public newTodoListName: string = '';
+  public shoppingList: ShoppingList = {
+    name: '',
+  }
 
-  constructor(private listService: ListService, private modalController: ModalController) { }
+  constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
   ngOnInit() { }
 
-  addTodoList() {
-    if (this.newTodoListName === '') {
-      this.newTodoListName = 'default';
+  createShoppingList() {
+    if (!this.shoppingList.name) {
+      this.shoppingList.name = 'default';
     }
-    this.listService.createTodoList(this.newTodoListName);
+    this.shoppingListService.createShoppingList(this.shoppingList);
     this.dismissModal();
-    this.newTodoListName = '';
   }
 
   dismissModal() {

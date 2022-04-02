@@ -11,16 +11,15 @@
   <ion-list>
     <ion-item>
       <ion-label position="stacked">name</ion-label>
-      <ion-input [(ngModel)]="newTodoListName" placeholder="titre de la todo-list"></ion-input>
+      <ion-input [(ngModel)]="shoppingList.name" placeholder="titre de la liste de course"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar class="modalValidateToolBar">
-    <ion-button class="addButton" (click)="addTodoList()" color="success">
-      Valider
-      <!--<ion-icon name="add-circle-outline"></ion-icon> peut etre avec un tick-->
+    <ion-button class="addButton" (click)="createShoppingList()" color="success">
+      Créer
     </ion-button>
   </ion-toolbar>
 </ion-footer>
