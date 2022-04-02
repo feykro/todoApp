@@ -32,9 +32,7 @@ export class ListDetailsPage implements OnInit {
 
   onEvent(event, itemToShop: ItemToShop) {
 
-    console.log(itemToShop);
     itemToShop.isDone = !itemToShop.isDone;
-    console.log(itemToShop);
 
     this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
 
@@ -47,8 +45,6 @@ export class ListDetailsPage implements OnInit {
   async createItemToShop() {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
-      showBackdrop: true,
-      backdropDismiss: true,
       componentProps: {
         shoppingListId: this.shoppingListId,
       },
@@ -59,8 +55,6 @@ export class ListDetailsPage implements OnInit {
   async modifyItemToShop(itemToShop: ItemToShop) {
     const modal = await this.modalController.create({
       component: ModifyTodoComponent,
-      showBackdrop: true,
-      backdropDismiss: true,
       componentProps: {
         shoppingListId: this.shoppingListId,
         itemToShop: itemToShop
