@@ -51,7 +51,7 @@ export class HomePage implements OnInit {
   }
 
   removeShoppingList(shoppingList: ShoppingList) {
-    this.shoppingListService.removeShoppingList(shoppingList.id);
+    this.shoppingListService.removeShoppingList(shoppingList);
   }
 
 }

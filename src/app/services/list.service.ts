@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ShoppingList } from '../models/shopping-list';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { EMPTY, of } from 'rxjs';
 import { ItemToShop } from '../models/item-to-shop';
 
 @Injectable({
@@ -28,8 +27,8 @@ export class ShoppingListService {
   }
 
   public getShoppingList(shoppingListId: string): Observable<ShoppingList> {
-    return this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`)
-      .valueChanges({ idField: "id" }).pipe(map(shoppinglist => {
+    return this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).valueChanges({ idField: "id" })
+      .pipe(map(shoppinglist => {
         shoppinglist.itemsToShop$ = this.getItemsToShop(shoppingListId);
         return (shoppinglist);
       }));
@@ -49,8 +48,11 @@ export class ShoppingListService {
     this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).update({ name: shoppingList.name });
   }
 
-  public removeShoppingList(shoppingListId: string) {
-    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).delete();
+  public removeShoppingList(shoppingList: ShoppingList) {
+    // delete each ItemToShop before deleting the ShoppingList (Firebase constraint)
+    shoppingList.itemsToShop$.pipe(map(
+      itemsToShop => itemsToShop.forEach(itemToShop => this.removeItemToShop(shoppingList.id, itemToShop.id))));
+    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).delete();
   }
 
   public createItemToShop(shoppingListId: string, itemToShop: ItemToShop) {
