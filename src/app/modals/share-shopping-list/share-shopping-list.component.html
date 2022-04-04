@@ -1,0 +1,31 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Partager une liste de courses</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Annuler</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label slot="start">Destinataire</ion-label>
+    <ion-input slot="start" type="text" (ionChange)="recipientChanged($event)" placeholder="adresse email">
+    </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-checkbox [checked]="recipientCanRead" (ionChange)="recipientCanReadChanged($event)" slot="start">
+    </ion-checkbox>
+    <ion-label slot="start">Lecture</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-checkbox [checked]="recipientCanWrite" (ionChange)="recipientCanWriteChanged($event)" slot="start">
+    </ion-checkbox>
+    <ion-label slot="start">Modification</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-button type="submit" (click)="shareShoppingList()">
+      Partager
+    </ion-button>
+  </ion-item>
+</ion-content>

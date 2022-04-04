@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
 
   async lostPassword() {
     const modal = await this.modalController.create({
-      component: LoginLostpasswordComponent,
+      component: LoginLostpasswordComponent
     });
     modal.present();
   }
