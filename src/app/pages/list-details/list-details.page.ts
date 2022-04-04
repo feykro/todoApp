@@ -9,6 +9,7 @@ import { ShoppingListService } from 'src/app/services/list.service';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
 import { Observable } from 'rxjs';
 import { ItemToShop } from 'src/app/models/item-to-shop';
+import { ShareShoppingListComponent } from 'src/app/modals/share-shopping-list/share-shopping-list.component';
 
 @Component({
   selector: 'app-list-details',
@@ -30,12 +31,9 @@ export class ListDetailsPage implements OnInit {
     this.shoppingList$ = this.shoppingListService.getShoppingList(this.shoppingListId);
   }
 
-  onEvent(event, itemToShop: ItemToShop) {
-
-    itemToShop.isDone = !itemToShop.isDone;
-
+  isDoneChanged(event: CustomEvent, itemToShop: ItemToShop) {
+    console.log(event, itemToShop);
     this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
-
     event.stopPropagation();
   }
 
@@ -73,6 +71,17 @@ export class ListDetailsPage implements OnInit {
       //  TODO: pass the right image
     });
     modal.present();
+  }
+
+  async shareShoppingList() {
+    const modal = await this.modalController.create({
+      component: ShareShoppingListComponent,
+      componentProps: {
+        shoppingListId: this.shoppingListId
+      }
+    });
+    modal.present();
+
   }
 
 }

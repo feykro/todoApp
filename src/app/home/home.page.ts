@@ -6,6 +6,7 @@ import { CreateListComponent } from '../modals/create-list/create-list.component
 import { Observable } from 'rxjs';
 import { ShoppingList } from '../models/shopping-list';
 import { ItemToShop } from '../models/item-to-shop';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +37,14 @@ export class HomePage implements OnInit {
       },
     });
     modal.present();
+  }
+
+  userCanWrite(shoppingList: ShoppingList): boolean {
+    return shoppingList.canWrite.includes(getAuth().currentUser.email);
+  }
+
+  userCanDelete(shoppingList: ShoppingList): boolean {
+    return shoppingList.owner === getAuth().currentUser.email;
   }
 
   isCompleted(itemsToShop: ItemToShop[]): boolean {

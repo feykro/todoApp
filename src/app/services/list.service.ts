@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
 import { ItemToShop } from '../models/item-to-shop';
+import { getAuth } from '@angular/fire/auth';
+import { arrayUnion, arrayRemove } from "firebase/firestore"
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,18 @@ export class ShoppingListService {
   private shoppingLists: Observable<ShoppingList[]>;
 
   constructor(private afs: AngularFirestore) {
-    const collection$ = this.afs.collection<ShoppingList>('ShoppingLists').valueChanges({ idField: "id" });
+
+    const userEmail: string = getAuth().currentUser.email;
+
+    const collection$ = this.afs.collection<ShoppingList>('ShoppingLists', ref => {
+      // return ref.where('owner', '==', userEmail).orderBy('name', 'asc');
+      // return ref.where('canWrite', 'array-contains', userEmail).orderBy('name', 'asc');
+      return ref.where('canRead', 'array-contains', userEmail).orderBy('name', 'asc');
+    }).valueChanges({ idField: "id" });
+
     this.shoppingLists = collection$.pipe(map(shoppingLists => shoppingLists.map(shoppingList => {
       shoppingList.itemsToShop$ = this.getItemsToShop(shoppingList.id);
+      console.log(shoppingList);
       return shoppingList;
     })));
   }
@@ -45,11 +56,27 @@ export class ShoppingListService {
   public modifyShoppingList(shoppingList: ShoppingList) {
     // We can only update fields that are not dertermined by firestore
     // Currently, it is consists only in the shoppingList name
+    // TODO : rename this function
     this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).update({ name: shoppingList.name });
   }
 
+  public modifyShoppingListShares(shoppingListId: string, recipient: string, canRead: boolean, canWrite: boolean) {
+
+    let data = {};
+    if (canRead) {
+      data['canRead'] = arrayUnion(recipient);
+    }
+    if (canWrite) {
+      data['canWrite'] = arrayUnion(recipient);
+    }
+    console.log(shoppingListId, recipient, canRead, canWrite);
+    console.log(data);
+
+    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).update({ ...data });
+  }
+
   public removeShoppingList(shoppingList: ShoppingList) {
-    // delete each ItemToShop before deleting the ShoppingList (Firebase constraint)
+    // Delete each ItemToShop before deleting the ShoppingList (Firebase constraint)
     shoppingList.itemsToShop$.pipe(map(
       itemsToShop => itemsToShop.forEach(itemToShop => this.removeItemToShop(shoppingList.id, itemToShop.id))));
     this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).delete();
