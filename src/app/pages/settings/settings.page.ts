@@ -16,17 +16,12 @@ export class SettingsPage implements OnInit {
   constructor(public auth: AngularFireAuth, private router: Router, private location: Location) { }
 
   ngOnInit() {
-    console.log("ngOnInit start");
     this.user = getAuth().currentUser.email;
   }
 
   logout() {
-    console.log("logout start");
-
     this.auth.signOut();
-
     this.router.navigateByUrl('');
-    console.log("logout end");
   }
 
   goBack() {

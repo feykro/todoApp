@@ -32,9 +32,10 @@ export class ListDetailsPage implements OnInit {
   }
 
   isDoneChanged(event: CustomEvent, itemToShop: ItemToShop) {
-    console.log(event, itemToShop);
-    this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
     event.stopPropagation();
+
+    itemToShop.isDone = !itemToShop.isDone;
+    this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
   }
 
   goBack() {

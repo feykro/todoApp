@@ -19,14 +19,12 @@ export class ShoppingListService {
     const userEmail: string = getAuth().currentUser.email;
 
     const collection$ = this.afs.collection<ShoppingList>('ShoppingLists', ref => {
-      // return ref.where('owner', '==', userEmail).orderBy('name', 'asc');
-      // return ref.where('canWrite', 'array-contains', userEmail).orderBy('name', 'asc');
+      // We ordrer by name and filter out every list the current user cannot read
       return ref.where('canRead', 'array-contains', userEmail).orderBy('name', 'asc');
     }).valueChanges({ idField: "id" });
 
     this.shoppingLists = collection$.pipe(map(shoppingLists => shoppingLists.map(shoppingList => {
       shoppingList.itemsToShop$ = this.getItemsToShop(shoppingList.id);
-      console.log(shoppingList);
       return shoppingList;
     })));
   }

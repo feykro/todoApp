@@ -15,15 +15,15 @@
     <ng-container *ngIf="shoppingLists$ | async as shoppingLists">
       <ion-item-sliding *ngFor="let shoppingList of shoppingLists" class="myItem">
 
-        <ion-item-options side="start">
+        <ion-item-options *ngIf="userCanWrite(shoppingList)" side="start">
           <ion-item-option (click)="modifyShoppingList(shoppingList)" expandable>
-            Modify
+            Modifier
           </ion-item-option>
         </ion-item-options>
 
-        <ion-item-options side="end">
+        <ion-item-options *ngIf="userCanDelete(shoppingList)" side="end">
           <ion-item-option (click)="removeShoppingList(shoppingList)" color="danger" expandable>
-            Delete
+            Supprimer
           </ion-item-option>
         </ion-item-options>
 
