@@ -10,17 +10,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label>
-      Utilisateur
-    </ion-label>
-    <ion-text>
+  <div class="votreCompte">
+    <ion-text class="compteText">
+      Votre compte
+    </ion-text>
+  </div>
+
+  <div class="kimiNoNaWa">
+    <ion-text class="namaeText">
       {{user}}
     </ion-text>
-  </ion-item>
-  <ion-item button fill="block" (click)="logout()">
-    <ion-label>
+  </div>
+
+  <div class="signInSlice">
+    <ion-button class="signInButton" style="--background:#844652" (click)="logout()">
       Deconnexion
-    </ion-label>
-  </ion-item>
+    </ion-button>
+  </div>
 </ion-content>
