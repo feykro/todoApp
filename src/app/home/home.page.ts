@@ -1,5 +1,5 @@
+import { ShoppingListService } from 'src/app/services/list.service';
 import { ModifyListComponent } from '../modals/modify-list/modify-list.component';
-import { ShoppingListService } from '../services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
@@ -9,6 +9,7 @@ import { ItemToShop } from '../models/item-to-shop';
 import { getAuth } from '@angular/fire/auth';
 import { startWith, map, filter } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
