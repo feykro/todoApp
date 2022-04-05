@@ -19,18 +19,6 @@ export class ShareShoppingListComponent implements OnInit {
 
   ngOnInit() { }
 
-  recipientChanged(event: CustomEvent) {
-    this.recipient = event.detail.value;
-  }
-
-  recipientCanReadChanged(event: CustomEvent) {
-    this.recipientCanRead = event.detail.checked;
-  }
-
-  recipientCanWriteChanged(event: CustomEvent) {
-    this.recipientCanWrite = event.detail.checked;
-  }
-
   dismissModal() {
     this.modalController.dismiss();
   }

@@ -31,10 +31,14 @@ export class ListDetailsPage implements OnInit {
     this.shoppingList$ = this.shoppingListService.getShoppingList(this.shoppingListId);
   }
 
-  isDoneChanged(event: CustomEvent, itemToShop: ItemToShop) {
+  isDoneChanged(event: MouseEvent, itemToShop: ItemToShop) {
     event.stopPropagation();
 
+    console.log(event, itemToShop);
     itemToShop.isDone = !itemToShop.isDone;
+    console.log(event, itemToShop);
+
+
     this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
   }
 

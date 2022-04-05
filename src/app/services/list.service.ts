@@ -18,12 +18,10 @@ export class ShoppingListService {
 
     const userEmail: string = getAuth().currentUser.email;
 
-    const collection$ = this.afs.collection<ShoppingList>('ShoppingLists', ref => {
-      // We ordrer by name and filter out every list the current user cannot read
-      return ref.where('canRead', 'array-contains', userEmail).orderBy('name', 'asc');
-    }).valueChanges({ idField: "id" });
+    const shoppingListsCollection$ = this.afs.collection<ShoppingList>('ShoppingLists', ref =>
+      ref.where('canRead', 'array-contains', userEmail).orderBy('name', 'asc')).valueChanges({ idField: "id" });
 
-    this.shoppingLists = collection$.pipe(map(shoppingLists => shoppingLists.map(shoppingList => {
+    this.shoppingLists = shoppingListsCollection$.pipe(map(shoppingLists => shoppingLists.map(shoppingList => {
       shoppingList.itemsToShop$ = this.getItemsToShop(shoppingList.id);
       return shoppingList;
     })));
@@ -59,22 +57,19 @@ export class ShoppingListService {
   }
 
   public modifyShoppingListShares(shoppingListId: string, recipient: string, canRead: boolean, canWrite: boolean) {
-
-    let data = {};
+    let sharesUpdate = {};
     if (canRead) {
-      data['canRead'] = arrayUnion(recipient);
+      sharesUpdate['canRead'] = arrayUnion(recipient);
     }
     if (canWrite) {
-      data['canWrite'] = arrayUnion(recipient);
+      sharesUpdate['canWrite'] = arrayUnion(recipient);
     }
-    console.log(shoppingListId, recipient, canRead, canWrite);
-    console.log(data);
 
-    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).update({ ...data });
+    this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingListId}`).update({ ...sharesUpdate });
   }
 
   public removeShoppingList(shoppingList: ShoppingList) {
-    // Delete each ItemToShop before deleting the ShoppingList (Firebase constraint)
+    // Delete each ItemToShop before deleting the ShoppingList (Firestore constraint)
     shoppingList.itemsToShop$.pipe(map(
       itemsToShop => itemsToShop.forEach(itemToShop => this.removeItemToShop(shoppingList.id, itemToShop.id))));
     this.afs.doc<ShoppingList>(`ShoppingLists/${shoppingList.id}`).delete();

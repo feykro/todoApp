@@ -1,5 +1,6 @@
-import { ModifyListComponent } from './../modals/modify-list/modify-list.component';
-import { CreateListComponent } from './../modals/create-list/create-list.component';
+import { ModifyListComponent } from '../modals/modify-list/modify-list.component';
+import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { ShareShoppingListComponent } from '../modals/share-shopping-list/share-shopping-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
@@ -16,6 +17,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage, CreateListComponent, ModifyListComponent]
+  declarations: [HomePage, CreateListComponent, ModifyListComponent, ShareShoppingListComponent]
 })
 export class HomePageModule { }
