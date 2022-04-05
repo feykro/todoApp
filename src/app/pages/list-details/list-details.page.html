@@ -38,8 +38,8 @@
               <p class="cardText">{{itemToShop.description}}</p>
               <p class="cardText">× {{itemToShop.quantity}}</p>
               <div>
-                <ion-button (click)="modifyItemToShop(itemToShop)">Modifier</ion-button>
-                <ion-button (click)="removeItemToShop(itemToShop)">Supprimer</ion-button>
+                <ion-button *ngIf="canWrite(shoppingList)" (click)="modifyItemToShop(itemToShop)">Modifier</ion-button>
+                <ion-button *ngIf="canWrite(shoppingList)" (click)="removeItemToShop(itemToShop)">Supprimer</ion-button>
               </div>
               <ion-img class="cardImage" (click)="displayImage()" src="assets/photo-placeholder/lait_photo.png">
               </ion-img>
