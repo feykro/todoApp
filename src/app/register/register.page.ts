@@ -10,7 +10,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 })
 export class RegisterPage implements OnInit {
 
-
   email: string = "";
   password: string = "";
 
@@ -19,19 +18,12 @@ export class RegisterPage implements OnInit {
 
   constructor(public auth: AngularFireAuth, private router: Router, private location: Location) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   register() {
-    console.log("register start");
-
-    console.log("register email = " + this.email);
-    console.log("register password = " + this.password);
-
 
     this.auth.createUserWithEmailAndPassword(this.email, this.password)
       .then((userCredential) => {
-        console.log("register OK, userCredential = " + userCredential);
         userCredential.user.sendEmailVerification();
         this.auth.signOut();
         this.router.navigateByUrl('');
@@ -40,11 +32,8 @@ export class RegisterPage implements OnInit {
         const errorCode = error.code;
         this.errorMessage = error.message;
         console.log("register KO, errorCode = " + errorCode + ", errorMessage = " + this.errorMessage);
-
         this.hasError = true;
       });
-
-    console.log("register end");
   }
 
   goBack() {

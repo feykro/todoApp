@@ -1,34 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Settings</ion-title>
-
+    <ion-title>Paramètres</ion-title>
     <ion-buttons slot="secondary">
       <ion-button (click)="goBack()">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-
-
 </ion-header>
 
 <ion-content>
-  <ion-text>
-    <h1>👨</h1>
-  </ion-text>
-
-  <ion-text>
-    <h1>Utilisateur</h1>
-  </ion-text>
-
-
-  <ion-text>{{user}}
-  </ion-text>
-
+  <ion-item>
+    <ion-label>
+      Utilisateur
+    </ion-label>
+    <ion-text>
+      {{user}}
+    </ion-text>
+  </ion-item>
   <ion-item button fill="block" (click)="logout()">
     <ion-label>
-      Deconnection
+      Deconnexion
     </ion-label>
   </ion-item>
-
 </ion-content>
