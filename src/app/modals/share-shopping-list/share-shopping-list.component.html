@@ -8,24 +8,30 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label slot="start">Destinataire</ion-label>
-    <ion-input slot="start" type="text" [(ngModel)]="recipient" placeholder="adresse email">
+  <div class="destinataireTitle">
+    <ion-text class="titleText" slot="start">Destinataire</ion-text>
+  </div>
+
+  <div class="destinataireInput">
+    <ion-input type="text" [(ngModel)]="recipient" placeholder="adresse email">
     </ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-checkbox slot="start" [(ngModel)]="recipientCanRead">
+  </div>
+
+  <ion-item lines="none">
+    <ion-checkbox slot="start" [(ngModel)]="readOnly" (click)="switchToReadOnly()">
     </ion-checkbox>
-    <ion-label slot="start">Lecture</ion-label>
+    <ion-label slot="start">Lecture seule</ion-label>
   </ion-item>
-  <ion-item>
-    <ion-checkbox slot="start" [(ngModel)]="recipientCanWrite">
+
+  <ion-item lines="none">
+    <ion-checkbox slot="start" [(ngModel)]="recipientCanWrite" (click)="switchToWrite()">
     </ion-checkbox>
     <ion-label slot="start">Modification</ion-label>
   </ion-item>
-  <ion-item>
-    <ion-button type="submit" (click)="shareShoppingList()">
+
+  <div class="submitDiv">
+    <ion-button class="submitButton" style="--background:#D48B3F" type="submit" (click)="shareShoppingList()">
       Partager
     </ion-button>
-  </ion-item>
+  </div>
 </ion-content>
