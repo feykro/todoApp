@@ -9,6 +9,8 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { HomePageRoutingModule } from './home-routing.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    ReactiveFormsModule,
   ],
   declarations: [HomePage, CreateListComponent, ModifyListComponent, ShareShoppingListComponent]
 })

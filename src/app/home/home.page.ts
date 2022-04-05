@@ -1,12 +1,15 @@
+import { ShoppingListService } from 'src/app/services/list.service';
 import { ModifyListComponent } from '../modals/modify-list/modify-list.component';
-import { ShoppingListService } from '../services/list.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { ShoppingList } from '../models/shopping-list';
 import { ItemToShop } from '../models/item-to-shop';
 import { getAuth } from '@angular/fire/auth';
+import { startWith, map, filter } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -16,10 +19,21 @@ import { getAuth } from '@angular/fire/auth';
 export class HomePage implements OnInit {
 
   public shoppingLists$: Observable<ShoppingList[]>;
+  public searchField: FormControl;
+  public filteredList$: Observable<ShoppingList[]>;
   constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
   ngOnInit() {
     this.shoppingLists$ = this.shoppingListService.getShoppingLists();
+    this.searchField = new FormControl('');
+    this.filteredList$ = this.shoppingLists$;
+  }
+
+  updateSearchField() {
+    const search: string = this.searchField.value;
+
+    this.filteredList$ = this.shoppingLists$.pipe(
+      map(lists => lists.filter(list => list.name.toLowerCase().includes(search.toLowerCase()))));
   }
 
   async createShoppingList() {
