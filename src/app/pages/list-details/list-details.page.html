@@ -41,11 +41,12 @@
 
               <span class="description">Description: {{itemToShop.description}}</span>
               <div class="buttonContainer">
-                <ion-button class="boutonGauche" (click)="modifyItemToShop(itemToShop)">
+                <ion-button *ngIf="canWrite(shoppingList)" class="boutonGauche" (click)="modifyItemToShop(itemToShop)">
                   Modifier</ion-button>
               </div>
               <div class="buttonContainer">
-                <ion-button class="boutonDroit" style="--background:#844652" (click)="removeItemToShop(itemToShop)">
+                <ion-button *ngIf="canWrite(shoppingList)" class="boutonDroit" style="--background:#844652"
+                  (click)="removeItemToShop(itemToShop)">
                   Supprimer</ion-button>
               </div>
 

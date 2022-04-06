@@ -10,6 +10,7 @@ import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.comp
 import { Observable } from 'rxjs';
 import { ItemToShop } from 'src/app/models/item-to-shop';
 import { ShareShoppingListComponent } from 'src/app/modals/share-shopping-list/share-shopping-list.component';
+import { getAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-list-details',
@@ -31,20 +32,21 @@ export class ListDetailsPage implements OnInit {
     this.shoppingList$ = this.shoppingListService.getShoppingList(this.shoppingListId);
   }
 
+  canWrite(shoppingList: ShoppingList): boolean {
+    return shoppingList.canWrite.includes(getAuth().currentUser.email);
+  }
+
   isDoneChanged(event: MouseEvent, itemToShop: ItemToShop) {
     event.stopPropagation();
 
-    console.log(event, itemToShop);
     itemToShop.isDone = !itemToShop.isDone;
-    console.log(event, itemToShop);
-
-
     this.shoppingListService.modifyItemToShop(this.shoppingListId, itemToShop);
   }
 
   goBack() {
     this.location.back();
   }
+
   async createItemToShop() {
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
@@ -86,7 +88,6 @@ export class ListDetailsPage implements OnInit {
       }
     });
     modal.present();
-
   }
 
 }

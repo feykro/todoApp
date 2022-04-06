@@ -1,6 +1,6 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Créer une todoList</ion-title>
+    <ion-title>Creer une liste de courses</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">Annuler</ion-button>
     </ion-buttons>
@@ -10,8 +10,8 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">Titre de la liste</ion-label>
-      <ion-input [(ngModel)]="shoppingList.name" placeholder="titre de la liste de course"></ion-input>
+      <ion-label slot="start">Nom</ion-label>
+      <ion-input slot="start" [(ngModel)]="shoppingList.name" placeholder="Nom de la liste de course"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>
