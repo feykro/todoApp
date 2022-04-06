@@ -11,17 +11,20 @@ import { ShoppingListService } from 'src/app/services/list.service';
 export class ModifyTodoComponent implements OnInit {
   @Input() shoppingListId: string;
   @Input() itemToShop: ItemToShop;
+  itemToShopModified: ItemToShop;
 
   constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.itemToShopModified = { ...this.itemToShop };
+  }
 
   dismissModal() {
     this.modalController.dismiss();
   }
 
   modifyItemToShop() {
-    this.shoppingListService.modifyItemToShop(this.shoppingListId, this.itemToShop);
+    this.shoppingListService.modifyItemToShop(this.shoppingListId, this.itemToShopModified);
     this.dismissModal();
   }
 
