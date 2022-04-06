@@ -12,8 +12,8 @@ export class ShareShoppingListComponent implements OnInit {
   constructor(private shoppingListService: ShoppingListService, private modalController: ModalController) { }
 
   recipient: string;
-  recipientCanRead: boolean = true;
   recipientCanWrite: boolean = false;
+  readOnly: boolean = true;
 
   @Input() shoppingListId: string;
 
@@ -23,8 +23,18 @@ export class ShareShoppingListComponent implements OnInit {
     this.modalController.dismiss();
   }
 
+  switchToReadOnly() {
+    if (!this.readOnly) this.recipientCanWrite = false;
+    else this.recipientCanWrite = true;
+  }
+
+  switchToWrite() {
+    if (!this.recipientCanWrite) this.readOnly = false;
+    else this.readOnly = true;
+  }
+
   shareShoppingList() {
-    this.shoppingListService.modifyShoppingListShares(this.shoppingListId, this.recipient, this.recipientCanRead, this.recipientCanWrite);
+    this.shoppingListService.modifyShoppingListShares(this.shoppingListId, this.recipient, true, this.recipientCanWrite);
     this.dismissModal();
   }
 

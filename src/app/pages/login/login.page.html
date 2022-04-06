@@ -1,46 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>IMAGasine</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content scroll-y="false">
+  <div class="title">
+    <ion-icon name="cart-outline"></ion-icon>
+    <ion-text class="titleText">IMAGasine</ion-text>
+  </div>
 
-<ion-content>
+  <div class="signIn">
+    <ion-text class="loginText">
+      Se connecter
+    </ion-text>
 
-  <ion-icon name="cart-outline"></ion-icon>
+    <ion-item lines="none">
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input class="mailInput" placeholder="name@example.com" [(ngModel)]="email"></ion-input>
+    </ion-item>
 
-  <br />
-  <ion-text>
-    Sign in
-  </ion-text>
+    <ion-item lines="none">
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input placeholder="name@example.com" [(ngModel)]="email"></ion-input>
-  </ion-item>
+    <div class="signInSlice">
+      <ion-button class="signInButton" style="--background:#57A566" (click)="login()">
+        Connexion
+      </ion-button>
+    </div>
 
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
-  </ion-item>
+    <ion-text *ngIf="message">{{message}}</ion-text>
+  </div>
 
-  <ion-item button fill="block" class="validate-button" (click)="login()">
-    <ion-label>
-      OK
-    </ion-label>
-  </ion-item>
-
-  <ion-text *ngIf="message">{{message}}</ion-text>
-
-  <ion-button [routerLink]="['/register']">
-    Sign up
-  </ion-button>
+  <div class="signUp">
+    <ion-button class="signUpButton" [routerLink]="['/register']">
+      Créer un compte
+    </ion-button>
+  </div>
 
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar class="forgottenPassword">
     <ion-button (click)="lostPassword()">
-      Lost password
+      Mot de passe oublié ?
     </ion-button>
   </ion-toolbar>
 </ion-footer>

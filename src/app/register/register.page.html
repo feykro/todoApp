@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>IMAGasine</ion-title>
+    <ion-title> Créer un compte </ion-title>
 
     <ion-buttons slot="secondary">
       <ion-button (click)="goBack()">
@@ -10,30 +10,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content scroll-y="false">
 
-  <ion-text>🛒</ion-text>
+  <div class="title">
+    <ion-icon name="cart-outline"></ion-icon>
+    <ion-text class="titleText">IMAGasine</ion-text>
+  </div>
 
-  <br />
-  <ion-text>
-    Sign up
-  </ion-text>
-
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
+  <ion-item lines="none">
+    <ion-label position="stacked">Votre email</ion-label>
     <ion-input placeholder="name@example.com" [(ngModel)]="email"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
+  <ion-item lines="none">
+    <ion-label position="stacked">Créer un mot de passe</ion-label>
     <ion-input type="password" placeholder="password" [(ngModel)]="password"></ion-input>
   </ion-item>
 
-  <ion-item button fill="block" class="validate-button" (click)="register()">
-    <ion-label>
-      OK
-    </ion-label>
-  </ion-item>
+  <div class="signUp">
+    <ion-button class="signUpButton" (click)="register()">
+      Valider
+    </ion-button>
+  </div>
 
   <ion-text *ngIf="hasError">{{errorMessage}}</ion-text>
 

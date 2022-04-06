@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar showCancelButton="focus" [formControl]="searchField" (ionChange)="updateSearchField()" debounce="100">
   </ion-searchbar>
-  <ion-list>
+  <ion-list class="actualBigList">
     <ng-container *ngIf="shoppingLists$ | async as shoppingLists">
       <ion-item-sliding *ngFor="let shoppingList of filteredList$ | async" class="myItem">
 

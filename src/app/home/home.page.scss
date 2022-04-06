@@ -34,11 +34,15 @@
   max-width: 70px;
 }
 
+.actualBigList {
+  width: 100%;
+}
+
 .myItem {
-  margin-top: 10px;
-  margin-left: 5px;
-  margin-right: 5px;
-  max-width: calc(100% - 12px);
+  margin-top: 15px;
+  margin-left: 11px;
+  margin-right: 11px;
+  max-width: calc(100% - 25px);
   border-radius: 15px;
 }
 
@@ -54,4 +58,8 @@
 .settingIcon {
   margin-right: 10px;
   height: 100%;
+}
+
+.listItem {
+  width: 100%;
 }
