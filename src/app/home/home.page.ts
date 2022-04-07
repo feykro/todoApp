@@ -3,13 +3,12 @@ import { ModifyListComponent } from '../modals/modify-list/modify-list.component
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ShoppingList } from '../models/shopping-list';
 import { ItemToShop } from '../models/item-to-shop';
 import { getAuth } from '@angular/fire/auth';
-import { startWith, map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
